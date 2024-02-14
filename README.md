@@ -2,7 +2,7 @@
 Smart injection of environment variables in already running kubernetes cluster
 
 ## Build architecture
-![image](readme/0.png)
+![image](readme/0.PNG)
 
 ## Install microk8s with helm
 01. cd VAULT_DEMO
@@ -12,14 +12,16 @@ Smart injection of environment variables in already running kubernetes cluster
 1. Visit https://hpcsa-vault.com/
 2. accept self sining certificate
 3. the followig page will be visbile
-![image](readme/1.png)
+![image](readme/1.PNG)
 
 4. Enter token: admin
 5. Click on Sign in
 6. VAULT HOOME PAGE: 
-![image](readme/2.png)
+![image](readme/2.PNG)
 
 7. Goto secret and click create new secret
+![image](readme/3.PNG)
+
 8. path for secret: myapp
    Toggle json and add following json:  
 
@@ -32,12 +34,13 @@ Smart injection of environment variables in already running kubernetes cluster
   "TEMPLATE_CONTENT": "This is a demo."
   }
 ```
-![image](readme/4.png)
+![image](readme/4.PNG)
 
 9. click on save
 
 ## Build verification
 1. Visit https://hpcsa.com/ and verify the base page 
+![image](readme/5.PNG)
 
 ## Incremental changes
 1. Update any of the variable defined in the vault
