@@ -7,7 +7,9 @@ data:
     if [ "$VAULT_ENABLE" = "true" ]; then
 
         VAULT_TOKEN="admin"
+        VAULT_PATH="myapp"
         VAULT_ADDRESS="http://$VAULT_SERVICE_HOST:$VAULT_SERVICE_PORT/v1/secret/data/$VAULT_PATH"
+        echo "address: " $VAULT_ADDRESS
         VAULT_HEADER="X-Vault-Token: $VAULT_TOKEN"
 
         echo "Installing necessary packages: curl and jq..."
@@ -27,6 +29,7 @@ data:
         elif [ "$HTTP_STATUS_CODE" = "403" ]; then
             echo "Incorrect token: $VAULT_TOKEN for $VAULT_ADDRESS"
         else
+            rm /tmp/.env || true
             JSON_DATA="$(curl -s -H "$VAULT_HEADER" "$VAULT_ADDRESS")"
             echo "$( echo $JSON_DATA | jq -r '.data.metadata.version')" > /tmp/version.txt
             echo "Exporting variables for $VAULT_PATH with version $(cat /tmp/version.txt)"
@@ -35,6 +38,7 @@ data:
                 value=$(echo "$JSON_DATA" | jq -r ".data.data[\"$key\"]")
                 export "$key"="$value"
                 echo "Exporting variable: $key=$value"
+                echo "$key=\"$value\"" >> /tmp/.env
             done
         fi
     else

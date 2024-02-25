@@ -15,10 +15,30 @@ spec:
       labels:
         service: myapp
     spec:
+      restartPolicy: Always
       volumes:
         - name: vault-integration-volume
           configMap:
             name: vault-integration-configmap
+        - name: vault-integration-volume-2 
+      initContainers:
+          - name: vault-init
+            image: dwdraju/alpine-curl-jq
+            env:
+              - name: VAULT_ENABLE
+                value: {{ .Values.myapp.VAULT_ENABLE | quote }}
+            command: ["/bin/sh"]
+            args:
+              - "-c"
+              - |
+                #!/bin/sh
+                echo "" >> /tmp/.env
+            volumeMounts:
+              - name: vault-integration-volume
+                mountPath: /var/tmp
+              - name: vault-integration-volume-2
+                mountPath: /tmp
+      
       containers:
         - name: myapp
           image: nginx
@@ -28,10 +48,8 @@ spec:
             - "-c"
             - |
               #!/bin/sh
-
-              # If enabled, run the vault environment variable injection integration script
-              [ $VAULT_ENABLE = "true" ] && cp /var/tmp/vault-integration.sh /tmp/ && chmod +x /tmp/vault-integration.sh && VAULT_PATH=myapp &&. ./tmp/vault-integration.sh
-              wait
+              
+              . /tmp/.env
 
               # Create index.html using environment variables 
               TEMPLATE="<!DOCTYPE html><html><head><meta charset='UTF-8' /><title>$TEMPLATE_TITLE</title><style> body { color: $TEMPLATE_TEXT_COLOR; background-color: $TEMPLATE_BACKGROUND_COLOR; } </style></head><body><h1>$TEMPLATE_HEADER</h1><p>$TEMPLATE_CONTENT</p></body></html>"
@@ -42,6 +60,8 @@ spec:
           volumeMounts:
             - name: vault-integration-volume
               mountPath: /var/tmp
+            - name: vault-integration-volume-2
+              mountPath: /tmp
           env:
             - name: VAULT_ENABLE
               value: {{ .Values.myapp.VAULT_ENABLE | quote }}
@@ -73,14 +93,15 @@ spec:
                 VAULT_TOKEN="admin"
                 VAULT_ADDRESS="http://$VAULT_SERVICE_HOST:$VAULT_SERVICE_PORT/v1/secret/data/$VAULT_PATH"
                 VAULT_HEADER="X-Vault-Token: $VAULT_TOKEN"
-
+                echo "address: " $VAULT_ADDRESS
                 HTTP_STATUS_CODE=$(curl -s --location "$VAULT_ADDRESS" --header "X-Vault-Token: $VAULT_TOKEN" -o /dev/null -w "%{http_code}")
-              
+
+                echo "Installing necessary packages: curl and jq..."
+                which apt-get && apt-get update && apt-get install -y jq
+                jq
+
                 if [ "$HTTP_STATUS_CODE" = "000" ]; then
                   echo "Service not found on given URL: $VAULT_ADDRESS"
-                  exit 0
-                elif [ "$HTTP_STATUS_CODE" = "404" ]; then
-                  echo "Route not found on given URL: $VAULT_ADDRESS"
                   exit 0
                 elif [ "$HTTP_STATUS_CODE" = "403" ]; then
                   echo "Incorrect token: $VAULT_TOKEN for $VAULT_ADDRESS"
@@ -88,14 +109,22 @@ spec:
                 else
                   echo "Status code: $HTTP_STATUS_CODE"
                   echo "$(curl -s -H "$VAULT_HEADER" "$VAULT_ADDRESS" | jq -r '.data.metadata.version')" > /tmp/liveness-version.txt
+                  if [ ! -e /tmp/version.txt ]; then
+                      echo "File /tmp/version.txt not found, creating it"
+                      cp /var/tmp/vault-integration.sh /tmp/ && chmod +x /tmp/vault-integration.sh && VAULT_PATH=myapp && /tmp/vault-integration.sh
+                      exit 1
+                  fi
                   if cmp -s /tmp/version.txt /tmp/liveness-version.txt; then 
                     echo "Environment variable version $(cat /tmp/liveness-version.txt) is up to date"
                     exit 0
                   else
                     echo "New environment variable version $(cat /tmp/liveness-version.txt) detected"
-                    exit 1
+                    rm -rf /tmp/version.txt
+                    exit 0
                   fi
                 fi
             initialDelaySeconds: 10
             periodSeconds: 2
+            timeoutSeconds: 60
+            failureThreshold: 1
 {{- end -}}
