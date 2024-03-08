@@ -46,3 +46,14 @@ Smart injection of environment variables in already running kubernetes cluster
 1. Update any of the variable defined in the vault
 2. Wait for few seconds, frontend will show 503 service not available error, which indicates that service is restarting
 3. The changes will be reflectes as soon as container restarts
+
+
+Things to do: 
+- diagram (sequence diagram or component diagram)
+- nginx se uda kr arboturary application me deployment maybe init script busybox, ya sidecar container
+- report initial version
+- thesis topic selection
+
+https://mermaid.js.org/syntax/sequenceDiagram.html
+https://hps.vi4io.org/research/open-theses
+https://data.goettingen-research-online.de/dataverse/gwdg-final-theses
