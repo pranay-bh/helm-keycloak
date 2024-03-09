@@ -38,6 +38,9 @@
 \usepackage{nicematrix}
 \usepackage[autostyle=true]{csquotes}
 \usepackage{cleveref}
+\usepackage{listings}
+
+
 
 \titleformat{\section}[hang]{\huge\bfseries}{\thesection\hspace{20pt}}{0pt}{\huge\bfseries}
 \graphicspath{{figures/}{./}{assets/}}
@@ -47,13 +50,13 @@
 
 % --- document configuration ---
 
-\newcommand{\thesistitle}{[Put your title here]}
-\newcommand{\supervisor}{[Put your supervisors name here]}
-\newcommand{\authorname}{[Put your name here]}
+\newcommand{\thesistitle}{Kubernetes for HPC}
+\newcommand{\supervisor}{Jonathan Decker}
+\newcommand{\authorname}{Pranay Bhatia}
 \newcommand{\university}{Georg-August-Universität Göttingen}
 \newcommand{\department}{Institute of Computer Science}
 \newcommand{\thesistype}{Seminar Report}
-\newcommand{\matrikelnumber}{[Put your matrikel number here]}
+\newcommand{\matrikelnumber}{17935037}
 \newcommand{\keywords}{} % Set keywords that describe your report
 
 \hypersetup{pdftitle=\thesistitle} % Set the PDF's title to your title
@@ -86,22 +89,7 @@
 \newpage
 
 \vfill
-
-% Fill out the statement by setting \ccheckbox for points that do not apply and \ccheckmark for points that do apply
-
-\subsection*{Statement on the usage of ChatGPT and similar tools\\ in the context of examinations}
-\noindent In this work I have used ChatGPT or a similar AI-system as follows:
-\begin{itemize}
-	\item[\ccheckmark]  Not at all
-	\item[\ccheckbox] In brainstorming
-	\item[\ccheckbox] In the creation of the outline
-	\item[\ccheckbox] To create individual passages, altogether to the extent of 0\% of the whole text % Set the percentage if this point applies
-	\item[\ccheckbox] For proofreading
-	\item[\ccheckbox] Other, namely: - % List here things that you used AI-systems for with regard to this document
-\end{itemize}
-I assure that I have stated all uses in full.\\
-Missing or incorrect information will be considered as an attempt to cheat.
-
+\input{gpt}
 \vfill
 
 \newpage
@@ -136,7 +124,12 @@ Missing or incorrect information will be considered as an attempt to cheat.
 \setcounter{page}{1}
 \pagestyle{fancy}
 
-\input{content}
+\input{introduction}
+\input{problem_statement}
+\input{background}
+\input{setup}
+\input{methodology}
+\input{conclusion}
 
 % --- references ---
 

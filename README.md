@@ -50,7 +50,7 @@ Smart injection of environment variables in already running kubernetes cluster
 
 Things to do: 
 - diagram (sequence diagram or component diagram)
-- nginx se uda kr arboturary application me deployment maybe init script busybox, ya sidecar container
+- use basic application
 - report initial version
 - thesis topic selection
 

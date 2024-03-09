@@ -1,0 +1,23 @@
+\section{Introduction}
+
+In modern containerized environments orchestrated by Kubernetes, managing environment variables efficiently and securely is essential for ensuring the reliability and security of applications. Environment variables play a crucial role in configuring and customizing containerized applications, providing a flexible and dynamic way to pass configuration information to running containers. However, manually updating environment variables in Kubernetes deployments can be cumbersome and error-prone, particularly in dynamic environments where configuration changes are frequent.
+
+The aim of this report is to propose a novel approach for smartly injecting environment variables into Kubernetes clusters and automating the process of detecting changes and restarting pods accordingly. By leveraging Kubernetes' liveness probe mechanism—a built-in feature for determining the health of containerized applications—we can create a robust and automated solution for managing environment variables seamlessly.
+
+Our approach involves encapsulating the logic for retrieving, validating, and updating environment variables within a liveness probe script, which is embedded within the container's configuration. This script continuously monitors the availability and integrity of environment variables, fetching them from a secure and centralized source, such as HashiCorp Vault. Upon detecting changes or discrepancies in the environment variables, the liveness probe triggers a pod restart, ensuring that the application remains up-to-date with the latest configuration changes.
+
+By automating the injection and updating of environment variables in Kubernetes deployments, our approach offers several benefits, including:
+
+\begin{itemize}
+    \item Improved Reliability: Ensuring that applications always have access to the correct and up-to-date environment variables enhances the reliability and stability of Kubernetes deployments.
+    
+    \item Enhanced Security: By fetching environment variables from a centralized and secure source, such as HashiCorp Vault, we can enforce access controls, encryption, and audit trails, thereby enhancing the security posture of the application.
+    
+    \item Efficient Configuration Management: Automating the process of injecting and updating environment variables simplifies configuration management tasks, reducing the risk of human error and streamlining the deployment process.
+    
+    \item Dynamic Scalability: With automated environment variable injection and pod restarts, Kubernetes deployments can dynamically scale in response to changing workload demands while ensuring consistent and reliable configuration across all instances.
+\end{itemize}
+
+In this report, we present the methodology, implementation details, experimental results, and discussion of our approach for smartly injecting environment variables in Kubernetes clusters. Through empirical evaluation and analysis, we demonstrate the effectiveness and efficiency of our solution in improving the reliability, security, and manageability of Kubernetes deployments.
+
+
