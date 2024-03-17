@@ -65,6 +65,10 @@ spec:
           env:
             - name: VAULT_ENABLE
               value: {{ .Values.myapp.VAULT_ENABLE | quote }}
+            - name: VAULT_PATH
+              value: {{ .Values.myapp.VAULT_PATH | quote }}
+            - name: VAULT_TOKEN
+              value: {{ .Values.vault.TOKEN | quote }}
             - name: TEMPLATE_TITLE
               value: {{ .Values.myapp.TEMPLATE_TITLE | quote }}
             - name: TEMPLATE_TEXT_COLOR

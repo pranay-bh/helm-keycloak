@@ -4,6 +4,7 @@ microServices:
 
 myapp:
   VAULT_ENABLE: true
+  VAULT_PATH: "frontend"
   TEMPLATE_TITLE: "My title"
   TEMPLATE_TEXT_COLOR: "black"
   TEMPLATE_BACKGROUND_COLOR: "whitesmoke"

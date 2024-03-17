@@ -6,8 +6,8 @@ data:
   vault-integration.sh: |
     if [ "$VAULT_ENABLE" = "true" ]; then
 
-        VAULT_TOKEN="admin"
-        VAULT_PATH="myapp"
+        VAULT_TOKEN="$VAULT_TOKEN"
+        VAULT_PATH="$VAULT_PATH"
         VAULT_ADDRESS="http://$VAULT_SERVICE_HOST:$VAULT_SERVICE_PORT/v1/secret/data/$VAULT_PATH"
         echo "address: " $VAULT_ADDRESS
         VAULT_HEADER="X-Vault-Token: $VAULT_TOKEN"
