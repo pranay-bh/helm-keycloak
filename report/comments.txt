@@ -1,0 +1,28 @@
+If you have time, could also describe a path how to deploy your setup into an existing cluster and how to register an existing deployment with your vault setup.
+
+
+For the report:
+
+
+- If you include a paragraph describing how the problem statement has been solved you could switch the name experimental setup to Results and the structure would be Intro -> Problem -> Background -> Design/Architecture -> Result -> Conclusion, which provides a more logical progression
+
+
+- Structure, the name "Methodology" for section 5 is misleading I would change it to Design or Architecture
+
+- Also Consider switching Section 4 and 5 as the design usually comes before the specific circumstances of the experiment
+
+
+
+- Please add references to the projects, which you mention, for example, Kubernetes and Vault, these can be as online source via \cite or as footnotes with a last accessed date and a link to the project homepage or github page
+
+- From the statement I saw you used a good amount of AI for generating the texts, which is fine, just make sure that the text is still good as the AI likes to talk a lot without saying much
+
+- Section 2 Security and compliance, I do not see how your project directly improves compliance with GDPR and HIPAA, showing that it actually does is a lot of effort, I would just drop the bullet point
+
+- As part of section 2 you could include the issue of operator managed pods as changes to them would be overwritten by the operator but your solution could be used to inject variables regardless of that, if I understood correctly
+
+
+- Also include references to your github project in some part saying, here you can find the code for my solution
+
+
+- You should also explicitly discuss the included figure and walk the reader through it and reference it in the text

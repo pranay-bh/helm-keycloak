@@ -1,0 +1,8 @@
+\section{Risks}
+The above mentioned deployment structure posses some potential risks. Firstly, Vault serves as the single source of failure within the system. Any downtime or service interruption of the Vault instance could disrupt critical operations reliant on its services. 
+
+Moreover, without proper backup mechanisms, such as persistent storage or integration with Consul for Vault, the loss of Vault data upon restart poses a significant risk. To mitigate this, implementing persistence storage with Vault or utilizing Consul for Vault management can enhance data reliability and availability. 
+
+Additionally, containerized applications must be configured to correctly source environment variables from the Vault setup. Misconfiguration can lead to applications failing to accessing updated environment variables.
+
+Thus, while Vault integration offers numerous benefits, careful consideration and implementation of mitigating measures are essential to address these potential risks effectively.

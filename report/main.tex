@@ -11,10 +11,10 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[12pt, a4paper, hidelinks]{article}
-
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{url}
 \usepackage[english]{babel}
 \usepackage[nottoc]{tocbibind}
 \usepackage[utf8]{inputenc}
@@ -41,6 +41,8 @@
 \usepackage{listings}
 
 
+% \usepackage[english]{babel}
+% \usepackage{natbib}
 
 \titleformat{\section}[hang]{\huge\bfseries}{\thesection\hspace{20pt}}{0pt}{\huge\bfseries}
 \graphicspath{{figures/}{./}{assets/}}
@@ -50,7 +52,7 @@
 
 % --- document configuration ---
 
-\newcommand{\thesistitle}{Kubernetes for HPC}
+\newcommand{\thesistitle}{Smart Injection of Environment Variables in Kubernetes Pod}
 \newcommand{\supervisor}{Jonathan Decker}
 \newcommand{\authorname}{Pranay Bhatia}
 \newcommand{\university}{Georg-August-Universität Göttingen}
@@ -88,34 +90,11 @@
 
 \newpage
 
-\vfill
-\input{gpt}
-\vfill
-
-\newpage
-
 % --- table of contents ---
 % Comment out the lists you are not using
 \clearpage
 \phantomsection\pdfbookmark{\contentsname}{toc}
 \tableofcontents
-
-\newpage
-\clearpage\phantomsection
-\listoftables
-%\newpage
-%\clearpage
-\phantomsection
-\listoffigures
-%\newpage
-%\clearpage
-\phantomsection
-\listoflistings \addcontentsline{toc}{section}{List of Listings}
-
-% If you have abbreviations
-\input{abbreviations}
-
-\thispagestyle{plain}
 \newpage
 
 % --- content ---
@@ -127,14 +106,15 @@
 \input{introduction}
 \input{problem_statement}
 \input{background}
-\input{setup}
-\input{methodology}
+\input{architecture}
+\input{integration}
+\input{risks}
+\input{result}
 \input{conclusion}
 
-% --- references ---
-
 \newpage
-\printbibliography[heading=bibintoc]
+\printbibliography{}
+\newpage
 
 % --- your appendix ---
 \appendix

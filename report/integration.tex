@@ -1,0 +1,35 @@
+\section{Integration}
+
+To start, the code implementation can be accessed at \url{https://github.com/pranay-bh/helm-keycloak} for basic deployment guideline.
+To integrate HashiCorp Vault into a generic deployment, follow the outlined procedure:
+
+\begin{enumerate}
+  \item \textbf{Deploy HashiCorp Vault:} Begin by deploying HashiCorp Vault within your environment. This provides a UI to change environment variables.
+  
+  \item \textbf{Configure Config Map:} Create a config map containing a shell script named \texttt{vault-integration.sh} from the GitHub repository mentioned architecture. 
+  \begin{itemize}
+    \item  This script takes two parameters:
+    \begin{itemize}
+      \item \textbf{Vault Token:} By default, set to 'admin'.
+      \item \textbf{Vault Path:} This path acts as the location in Vault where the variables will be stored. Adjust this path if needed.
+    \end{itemize}
+    If Vault is running in a different cluster: Update the Vault Path to reach the URL and Vault token of the external Vault instance.
+  \end{itemize}
+  
+  \item \textbf{Values.yaml File:} Ensure that the \texttt{values.yaml} file includes the following variables \newline
+      Vault\_Token
+      Vault\_Path
+      Vault\_Enabled
+  
+  \item \textbf{Update Deployment Container:}
+  \begin{itemize}
+    \item Add two volume mounts:
+    \begin{itemize}
+      \item For bash scripts (config and secret YAML file mounts are read-only after Kubernetes 1.19) (in previous script:, \texttt{/var/tmp}).
+      \item For writing the \texttt{.env} file and temporary files to compare Vault secret versions (in previous script:, \texttt{/tmp}).
+    \end{itemize}
+    \item Create an init container responsible for creating a new \texttt{.env} file. This file stores all variables required for the main container's startup. Its absence may cause the main container to fail to start.
+    \item Mount volumes and pass Vault-specific environment variables to the main container.
+    \item Create and execute a script from the liveness probe to interact with Vault.
+  \end{itemize}
+\end{enumerate}

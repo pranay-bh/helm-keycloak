@@ -3,73 +3,51 @@
 \subsection{HashiCorp Vault}
 
 \textbf{Introduction:}
-HashiCorp Vault is a popular open-source tool for managing secrets and sensitive data in modern cloud-native environments. It provides a centralized platform for securely storing, accessing, and managing secrets such as API keys, passwords, certificates, and encryption keys. Vault offers a robust set of features and capabilities designed to address the challenges of secrets management in dynamic and distributed systems.
+HashiCorp Vault is a popular open-source tool for managing secrets and sensitive data in modern cloud-native environments. It provides a centralized platform for securely storing, accessing, and managing secrets such as API keys, passwords, certificates, and encryption keys. Vault offers a robust set of features and capabilities designed to address the challenges of secrets management in dynamic and distributed systems. \cite{vault}
 
 \textbf{Use and Benefits:}
-The primary use of HashiCorp Vault is to securely manage secrets and sensitive data in cloud-native applications and infrastructure. By centralizing the storage of secrets, Vault helps organizations improve security, compliance, and operational efficiency. Some key benefits of using HashiCorp Vault include:
+The primary use of HashiCorp Vault is to securely manage secrets and sensitive data in cloud-native applications and infrastructure. By centralizing the storage of secrets, Vault helps organizations improve security, compliance, and operational efficiency.
 
-\begin{itemize}
-    \item \textbf{Enhanced Security:} Vault provides encryption, access control, and auditing capabilities to protect sensitive data from unauthorized access and breaches.
-    
-    \item \textbf{Scalability:} Vault is designed to scale horizontally to meet the needs of large and dynamic environments, ensuring that secrets management remains efficient and reliable as deployments grow.
-    
-    \item \textbf{Compliance:} Vault helps organizations meet regulatory compliance requirements by enforcing security best practices and providing audit trails for secret access and management.
-    
-    \item \textbf{Integration:} Vault seamlessly integrates with popular cloud platforms, container orchestration systems (such as Kubernetes), and CI/CD pipelines, making it easy to incorporate secrets management into existing workflows.
-\end{itemize}
+\textbf{Thanks to Built-in APIs} which allow developers and operators to interact with Vault programmatically. These APIs provide access to Vault's functionality, including the ability to retrieve, create, update, and delete secrets.  \cite{vault-api}
 
-\textbf{Thanks to Built-in APIs:}
-One of the key features of HashiCorp Vault is its rich set of built-in APIs, which allow developers and operators to interact with Vault programmatically. These APIs provide access to Vault's functionality, including the ability to retrieve, create, update, and delete secrets. Additionally, Vault offers APIs for dynamic secrets generation, token management, and encryption operations. This flexibility enables developers to automate secrets management tasks and integrate Vault seamlessly into their applications and infrastructure.
+\textbf{Key/Value Secrets Engine API} is the API allows users to store and retrieve secrets as key/value pairs within Vault's hierarchical data store. This also provides metadata, which defines what is the current of secret of defiled in each Key/Value secret engine. \cite{vault-kv}
 
-\textbf{Available APIs to Fetch Secrets:}
-Vault exposes several APIs for fetching secrets, each designed to accommodate different use cases and access patterns:
+Additionally, Vault provide a User interface, which developers can use to add, modify, delete and update the secrets which are inside kubernetes container. \cite{vault-ui}
 
-\begin{itemize}
-    \item \textbf{Key/Value Secrets Engine API:} This API allows users to store and retrieve secrets as key/value pairs within Vault's hierarchical data store.
-    
-    \item \textbf{Database Secrets Engine API:} Vault provides APIs for dynamically generating and managing database credentials, allowing applications to securely access databases without exposing static credentials.
-    
-    \item \textbf{AWS Secrets Engine API:} With this API, Vault can dynamically generate AWS IAM credentials with configurable TTLs and IAM policies, enabling secure access to AWS resources.
-    
-    \item \textbf{Kubernetes Secrets Engine API:} Vault integrates seamlessly with Kubernetes clusters, allowing applications running in Kubernetes to authenticate with Vault and fetch secrets securely using Kubernetes service accounts.
-\end{itemize}
-
-\textbf{In summary,} HashiCorp Vault is a powerful tool for managing secrets and sensitive data in cloud-native environments. Its rich set of features, flexible APIs, and seamless integrations make it an essential component of modern infrastructure and application security architectures.
+In summary, HashiCorp Vault is a powerful tool for managing variables in cloud-native environments. Its rich set of features and flexible APIs makes it an essential component for our architecture.
 
 \subsection{Liveness Probes}
 
 \textbf{Functionality of Liveness Probe}
 
 \textbf{What is Liveness Probe:}
-In Kubernetes, a liveness probe is a mechanism used to determine the health of a containerized application running in a pod. It periodically checks the application's state to ensure that it is running as expected. The liveness probe performs this check by sending requests to a specified endpoint within the container and evaluating the response. If the application responds successfully, indicating that it is healthy, the liveness probe considers the container to be in a good state. However, if the application fails to respond or returns an error, indicating that it is unhealthy, the liveness probe takes action, such as restarting the container.
+In Kubernetes, a liveness probe is a mechanism used to determine the health of a containerized application running in a pod. It periodically checks the application's state to ensure that it is running as expected. The liveness probe performs this check by sending requests to a specified endpoint within the container and evaluating the response. If the application responds successfully, indicating that it is healthy, the liveness probe considers the container to be in a good state. However, if the application fails to respond or returns an error, indicating that it is unhealthy, the liveness probe takes action, such as restarting the container. \cite{kubernetes-probes} \cite{zahorscak}
 
 \textbf{Benefits:}
 The use of liveness probes offers several benefits for managing containerized applications in Kubernetes deployments:
 
 \begin{itemize}
-    \item \textbf{Improved Reliability:} By continuously monitoring the health of containerized applications, liveness probes help ensure that unhealthy containers are detected and replaced promptly, minimizing downtime and enhancing application reliability.
+    \item \textbf{Improved Reliability:} By continuously monitoring the health of containerized applications, liveness probes help ensure that unhealthy containers are detected and replaced promptly, minimizing downtime and enhancing application reliability. \cite{odabasi}
     
-    \item \textbf{Automatic Recovery:} Liveness probes facilitate automatic recovery from application failures by restarting unhealthy containers, thereby maintaining the desired state of the application and preserving service availability.
+    \item \textbf{Automatic Recovery:} Liveness probes facilitate automatic recovery from application failures by restarting unhealthy containers, thereby maintaining the desired state of the application and preserving service availability. \cite{kubernetes-probes}
     
-    \item \textbf{Scalability:} Liveness probes enable Kubernetes clusters to dynamically scale resources based on workload demands, as unhealthy containers are replaced with healthy ones, allowing the cluster to adapt to changing conditions efficiently.
+    \item \textbf{Scalability:} Liveness probes enable Kubernetes clusters to dynamically scale resources based on workload demands, as unhealthy containers are replaced with healthy ones, allowing the cluster to adapt to changing conditions efficiently. \cite{zahorscak}
     
-    \item \textbf{Simplified Operations:} By automating the detection and recovery of unhealthy containers, liveness probes reduce the need for manual intervention and streamline operations, making it easier to manage large-scale Kubernetes deployments.
+    \item \textbf{Simplified Operations:} By automating the detection and recovery of unhealthy containers, liveness probes reduce the need for manual intervention and streamline operations, making it easier to manage large-scale Kubernetes deployments. \cite{zahorscak}
 \end{itemize}
 
 \textbf{Parameters:}
 Liveness probes in Kubernetes are configured using several parameters that define how the probe operates and when it should take action:
 
 \begin{itemize}
-    \item \textbf{Initial Delay:} This parameter specifies the amount of time to wait after the container starts before performing the first liveness probe. It allows the application to initialize before being checked for health.
+    \item \textbf{Initial Delay:} This parameter specifies the amount of time to wait after the container starts before performing the first liveness probe. It allows the application to initialize before being checked for health. \cite{kubernetes-probes}
     
-    \item \textbf{Period:} The period parameter defines the frequency at which the liveness probe should be executed, indicating how often the application's health should be assessed.
+    \item \textbf{Period:} The period parameter defines the frequency at which the liveness probe should be executed, indicating how often the application's health should be assessed.\cite{kubernetes-probes}
     
-    \item \textbf{Timeout:} This parameter sets the maximum amount of time the probe should wait for a response from the application. If the application fails to respond within this timeframe, the probe considers it unhealthy.
+    \item \textbf{Timeout:} This parameter sets the maximum amount of time the probe should wait for a response from the application. If the application fails to respond within this timeframe, the probe considers it unhealthy.\cite{kubernetes-probes}
     
-    \item \textbf{Success Threshold:} The success threshold parameter specifies the number of consecutive successful probe results required to consider the application as healthy.
-    
-    \item \textbf{Failure Threshold:} Conversely, the failure threshold parameter defines the number of consecutive failed probe results that indicate the application is unhealthy and should be restarted.
+    \item \textbf{Failure Threshold:} Conversely, the failure threshold parameter defines the number of consecutive failed probe results that indicate the application is unhealthy and should be restarted.\cite{kubernetes-probes}
 \end{itemize}
 
 \textbf{Leveraging Liveness Probe for Conditional Restart of Cluster:}
-By leveraging the functionality of liveness probes, Kubernetes deployments can implement conditional restarts of clusters based on the health status of containerized applications. This approach involves configuring liveness probes to monitor critical components or services within the cluster and trigger restarts if anomalies or failures are detected. For example, if a key service within the cluster becomes unresponsive or experiences errors, the corresponding liveness probe can detect this condition and initiate a restart of the affected containers or pods. This proactive approach to managing cluster health helps maintain overall system reliability and availability, ensuring that applications continue to operate smoothly even in the face of transient failures or issues.
+By leveraging the functionality of liveness probes, Kubernetes deployments can implement conditional restarts of clusters based on the health status of containerized applications. We will use liveness probe to verify if the secret version of a key/vault secret engine matches to current deployment version. If both version matched, we will classify pod as healthy. In case of mismatch pod should restart itself automatically and fetch latest version of secrets from the vault. 

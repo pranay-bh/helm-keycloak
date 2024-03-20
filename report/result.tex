@@ -1,0 +1,8 @@
+\section{Result}
+
+The result addresses the challenges posed by manual configuration in Kubernetes deployments, offering a robust, UI Based automated solution to intelligently inject environment variables into Kubernetes clusters. The solution not only eliminates the need for manual tweaking and adjustment but also make developers to do the same task without having knowledge of deployments and infrastructure. It enhances reliabilit and scalability within dynamic environments where configuration changes are frequent.
+The solution includes a script packaged along with the application container image or as a ConfigMap in Kubernetes, ensuring availability within the container environment and execution as part of the pod lifecycle.
+
+During pod initialization, Kubernetes mounts the script and executes it as a liveness probe. The script communicates with HashiCorp Vault using the specified address and token to fetch secrets as needed. Standard Unix commands such as \texttt{curl} and \texttt{jq} are utilized to interact with the Vault API and parse JSON responses. Upon detecting changes in retrieved secrets, the script restart the pods and exports new secrets as environment variables within the pod, ensuring the application has access to the latest configuration.
+
+The result addresses the problem statement by providing an automated solution that intelligently manages environment variables, enhancing the reliability, security, and scalability of applications running in Kubernetes clusters. By automatically triggering pod restarts upon detecting changes or updates to the configuration, the solution minimizes errors, inconsistencies, and downtime, thereby optimizing the operational efficiency of Kubernetes deployments.
